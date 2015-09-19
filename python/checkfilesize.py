@@ -1,12 +1,12 @@
-#coding=utf-8
+ï»¿#coding=utf-8
 
 import os
 from os.path import join, getsize, isdir, exists
 
-#ÈÕÖ¾ÎÄ¼ş£¬Èç¹ûÎ´ÉèÖÃÈÕÖ¾ÎÄ¼ş£¬Ôò´òÓ¡µ½ÆÁÄ»
+#æ—¥å¿—æ–‡ä»¶ï¼Œå¦‚æœæœªè®¾ç½®æ—¥å¿—æ–‡ä»¶ï¼Œåˆ™æ‰“å°åˆ°å±å¹•
 LOGFILE = "checkfilesize.log"
 
-#³¬¹ıÕâ¸ö´óĞ¡µÄÎÄ¼ş»òÄ¿Â¼½«»áÊä³öÈÕÖ¾
+#è¶…è¿‡è¿™ä¸ªå¤§å°çš„æ–‡ä»¶æˆ–ç›®å½•å°†ä¼šè¾“å‡ºæ—¥å¿—
 LOGSIZETHRESHOLD = 500*1024*1024
 
 def setlogfile(logfile) :
@@ -19,7 +19,7 @@ def setlogsizethresdhold(size) :
   LOGSIZETHRESHOLD = size
   return
 
-#ÈÕÖ¾´¦Àí£¬´òÓ¡µ½ÎÄ¼ş»òÆÁÄ»
+#æ—¥å¿—å¤„ç†ï¼Œæ‰“å°åˆ°æ–‡ä»¶æˆ–å±å¹•
 def log(str) :
   global LOGFILE 
   if len(LOGFILE) > 0 :
@@ -32,7 +32,7 @@ def log(str) :
     print str
   return
 
-#ÎÄ¼ş´óĞ¡×ª»»Îª×Ö·û´®
+#æ–‡ä»¶å¤§å°è½¬æ¢ä¸ºå­—ç¬¦ä¸²
 def sizetostring(size) :
   if size > 1024*1024*1024:
     return "%.2f GB" %(float(size)/1024/1024/1024)
@@ -43,20 +43,20 @@ def sizetostring(size) :
   else :
     return "%.2f B" %(float(size))
 
-#ÎÄ¼ş³¬¹ıÒ»¶¨´óĞ¡£¬´òÓ¡ÎÄ¼şÂ·¾¶¼°Æä´óĞ¡
+#æ–‡ä»¶è¶…è¿‡ä¸€å®šå¤§å°ï¼Œæ‰“å°æ–‡ä»¶è·¯å¾„åŠå…¶å¤§å°
 def checksize(filepath, filesize) :
   global LOGSIZETHRESHOLD
   if filesize > LOGSIZETHRESHOLD :
     log(filepath + " : " + sizetostring(filesize))
   return
     
-#Í¨¹ıos.walk±éÀúÎÄ¼şµÃµ½Ä¿Â¼µÄ×Ü´óĞ¡
+#é€šè¿‡os.walkéå†æ–‡ä»¶å¾—åˆ°ç›®å½•çš„æ€»å¤§å°
 def getdirsizebywalk(dir) :
   totalsize = 0L
   dirsize = 0L
   filesize = 0L
   filepath = ""
-  #os.walk»á±éÀúËùÓĞÇ¶Ì××ÓÄ¿Â¼
+  #os.walkä¼šéå†æ‰€æœ‰åµŒå¥—å­ç›®å½•
   for root, dirs, files in os.walk(dir):
     dirsize = 0L
     for name in files :
@@ -71,8 +71,8 @@ def getdirsizebywalk(dir) :
     totalsize += dirsize      
   return totalsize  
 
-#Í¨¹ıº¯Êıµİ¹éµÄ·½Ê½£¬»ñÈ¡Ä¿Â¼µÄ×Ü´óĞ¡
-#Èç¹ûÎÄ¼ş»òÄ¿Â¼µÄ´óĞ¡³¬¹ıãĞÖµ£¬»á´òÓ¡ÎÄ¼şÂ·¾¶ºÍ´óĞ¡
+#é€šè¿‡å‡½æ•°é€’å½’çš„æ–¹å¼ï¼Œè·å–ç›®å½•çš„æ€»å¤§å°
+#å¦‚æœæ–‡ä»¶æˆ–ç›®å½•çš„å¤§å°è¶…è¿‡é˜ˆå€¼ï¼Œä¼šæ‰“å°æ–‡ä»¶è·¯å¾„å’Œå¤§å°
 def getdirsizerecursive(dir) :
   totalsize = 0L
   filesize = 0L
@@ -94,7 +94,7 @@ def getdirsizerecursive(dir) :
   
   return totalsize  
 
-#ÁĞ³öÖ¸¶¨Ä¿Â¼ÏÂµÄËùÓĞÎÄ¼şºÍÄ¿Â¼µÄ×Ü´óĞ¡
+#åˆ—å‡ºæŒ‡å®šç›®å½•ä¸‹çš„æ‰€æœ‰æ–‡ä»¶å’Œç›®å½•çš„æ€»å¤§å°
 def listchildsize(dir) :
   listfile = []
   filePath = ""
@@ -111,7 +111,7 @@ def listchildsize(dir) :
       filesize = 0L
     listfile.append((filepath, filesize))
   
-  #¶ÔÎÄ¼ş½øĞĞ´Ó´óµ½Ğ¡ÅÅĞò
+  #å¯¹æ–‡ä»¶è¿›è¡Œä»å¤§åˆ°å°æ’åº
   listfile.sort(lambda x,y:cmp(x[1],y[1]), reverse = True)
   for item in listfile :
     log(item[0] + " : " + sizetostring(item[1]))
